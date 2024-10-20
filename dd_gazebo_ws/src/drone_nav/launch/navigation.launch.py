@@ -31,5 +31,15 @@ def generate_launch_description():
         Node(
             package='drone_nav',
             executable='odom_publisher_broadcaster',
+            name='odom_publisher_broadcaster'),
+        Node(
+            package='mode_state_publisher',
+            executable='mode_state_publisher',
+            parameters=[{
+                'drone_description': launch_ros.descriptions.ParameterValue(
+                    Command(['xacro ', LaunchConfiguration('model')]), value_type=str
+                ),
+                'use_sim_time': LaunchConfiguration('use_sim_time')
+            }],
             name='odom_publisher_broadcaster')
     ])
